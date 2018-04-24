@@ -65,3 +65,7 @@ components:
           type: string
           format: date-time
           example: 2016-11-17T19:47:00:000Z
+        eindGeldigheid:
+          type: string
+          format: date-time
+          example: 2016-11-17T19:47:00:000Z
