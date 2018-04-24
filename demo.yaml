@@ -1,0 +1,67 @@
+openapi: 3.0.0
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://voorbeeldgemeente/demo/API
+info:
+  description: Dit is een demo API in Git
+  version: "1.0.0"
+  title: GitHub demo
+  contact:
+    email: frank.samwel@vng.nl
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: ontwikkelaars
+    description: Operations die beschikbaar zijn voor deze demo
+paths:
+  /v1/entiteiten/{sleutel}:
+    tags:
+        - ontwikkelaars
+      summary: Ophalen van entiteit-gegevens
+      operationId: getAgenda
+      description: |
+        Op basis van de sleutel kunnen de gegevens van een entiteit opgehaald worden.
+      parameters:
+        - in: path
+          name: sleutel
+          description: Unieke sleutel van de entiteit.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Zoekactie geslaagd.
+          headers:
+            api-version:
+              schema:
+                type: string
+                description: Geeft een specifieke API-versie aan in de context van een specifieke aanroep.
+                example: "1.0.0"
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/entiteit'
+components:
+  schemas:
+    entiteit:
+      type: object
+      description: Entiteit
+      required:
+        - sleutel
+        - omschrijving
+      properties:
+        sleutel:
+          type: string
+          maxLength: 10
+          example: '10982891'
+        omschrijving:
+          type: string
+          example: 'Omschrijving van de entiteit'
+        eigenschap:
+          type: string
+          example: 'Eigenschap van de entiteit'
+        beginGeldigheid:
+          type: string
+          format: date-time
+          example: 2016-11-17T19:47:00:000Z
