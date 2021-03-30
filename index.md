@@ -15,7 +15,7 @@ Bij een testgeval betekent
 - Een getal dat het aantal items van het gegeven het testgeval heeft.
 - Tekst dat dit de enumeratiewaarde is van het gegeven bij dit testgeval.
 
-- (GetKadastraalOnroerendeZaak)[#GetKadastraalOnroerendeZaak]
+- [GetKadastraalOnroerendeZaak](#GetKadastraalOnroerendeZaak)
 - GetZakelijkGerechtigde
 - GetKadasterPersoon
 - GetKadasterNietNatuurlijkPersoon
