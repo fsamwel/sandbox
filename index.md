@@ -13,6 +13,7 @@ Bij een testgeval betekent
 
 
 ##GetBeslag
+
 ||||||17150075470000/95377750|17150075470000/95377751|
 |aandeelInBetrokkenRecht{}||||||X|X|
 |noemer|||||X|X|
