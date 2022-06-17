@@ -1,13 +1,5 @@
-# Sandbox
+# Redoc links
 
-Deze repository is er om te oefenen met Git
+## Bewoning
 
-met verwijzing naar issue [#3](../../issues/3)
-
-## Paragraaf 1
-
-Tekst
-
-##Paragraaf 2
-
-Tekst
+- [Haal Centraal versie](redoc-bewoning)
