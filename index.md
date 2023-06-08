@@ -1,426 +1,171 @@
-# Testgevallen
+---
+layout: page-with-side-nav
+title: Features
+---
 
-Hier staan per operatie de beschikbare testgevallen waarbij per property is aangegeven of het testgeval hierop een waarde heeft.
+# {{ site.apiname }} Web API Features
 
-De bovenste rij van elke tabel bevat de identificaties van de test-resources.
-De linker kolom(men) bevatten de namen van properties van de resource.
-Aan het einde van een propertynaam toegevoegde
-- "{}" betekent dat dit property een object (gegevensgroep) is.
-- "[]" betekent dat dit property een array is.
-- "[{}]" betekent dat dit property een array van objecten is.
-- "()" betekent dat dit property een enumeratie is.
+De {{ site.apiname }} Web API maakt het mogelijk om gegevens van actuele personen in de basisregistratie personen (BRP) te raadplegen. De personen worden opgezocht op basis van hun identificerende gegevens.
 
-Bij een testgeval betekent
-- "X" dat dit testgeval een waarde heeft voor het betreffende gegeven.
-- Een getal dat het aantal items van het gegeven het testgeval heeft.
-- Tekst dat dit de enumeratiewaarde is van het gegeven bij dit testgeval.
+In de BRP worden personen uniek geïdentificeerd met behulp van hun burgerservicenummer. Is het burgerservicenummer van de te raadplegen persoon/personen bekend, dan moet de [Raadpleeg persoon met burgerservicenummer](#raadplegen-van-personen) operatie worden gebruikt om de betreffende persoon/personen te raadplegen.
 
-**Operaties:**
+Is het burgerservicenummer van de te raadplegen persoon/personen niet bekend, dan kan deze worden opgezocht met behulp van de [Zoek persoon](#zoeken-van-personen) operaties.
 
-- [GetKadastraalOnroerendeZaak](#GetKadastraalOnroerendeZaak)
-- [GetZakelijkGerechtigde](#GetZakelijkGerechtigde)
-- [GetKadasterPersoon](#GetKadasterPersoon)
-- [GetKadasterNietNatuurlijkPersoon](#GetKadasterNietNatuurlijkPersoon)
-- [GetHypotheek](#GetHypotheek)
-- [GetBeslag](#GetBeslag)
-- [GetPrivaatrechtelijkeBeperking](#GetPrivaatrechtelijkeBeperking)
-- [GetStuk](#GetStuk)
-- [GetStukdeel](#GetStukdeel)
+## Algemene Verordening Gegevensbescherming (AVG)
 
-## GetKadastraalOnroerendeZaak
+De BRP bevragen API is ontworpen conform de REST principes. Om ook aan de AVG te conformeren zijn er concessies gedaan met betrekking tot het toepassen van de REST principes. De belangrijkste concessie is dat de POST methode en niet de GET methode wordt gebruikt om personen te bevragen. Dit zorgt er voor dat er geen [persoonlijk identificeerbare informatie (PII)](https://piwikpro.nl/blog/pii-niet-pii-en-persoonsgegevens/) terecht komen in de url van een request en daardoor ook niet in server logs.
 
-||||76870487970000|76870488070000|76870482670000|76870482570000|22310827210003|56020234070000|23280647970000|65490485370000|24780711870000|17150075470000|22590043870000|17500393970000|22360467970000|19560032970000|17550448670000|22310827210004|76370602970000|65490485270000|
-|--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
-|aardCultuurBebouwd{}|||X||X|||||||X||X||X|||||
-|aardCultuurOnbebouwd{}||||||||||||||||X|||||
-|adressen[{}]|||1|1|1|1|1|1|5|1|6|1|3|1|1|2|1|1||1|
-||huisletter|||||||||X|X||||||||||
-||huisnummer||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X||X|
-||huisnummertoevoeging||||||||||X||||||||||
-||postcode||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X||X|
-||straat||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X||X|
-||woonplaats||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X||X|
-||adresregel1||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X||X|
-||adresregel2||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X||X|
-||adresregel3||||||||||||||||||||
-||land{}||||||||||||||||||||
-||nummeraanduidingIdentificatie||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X||X|
-||adresseerbaarObjectIdentificatie||||||||||||||||||||
-||koppelingswijze{}||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X||X|
-|begrenzingPerceel{}|||X|X||X|||||||||||||||
-||coordinates[]||1|1||1|||||||||||||||
-||type()||Polygon|Polygon||Polygon|||||||||||||||
-|beslagIdentificaties[]||||||||||||2|||||||||
-|bijbehorendGrondperceelIdentificatie|||||||||||||||||||||
-|bijbehorendeAppartementsrechtIdentificaties[]|||||||||||||||||||||
-|domein|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-|einddatum|||||||||||||||||||||
-|hypotheekIdentificaties[]|||1||2|1|1|1||||1||||2|1|2|||
-|identificatie|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-|indicatieVervallen|||||||||||||||||||||
-|isOntstaanUit[{}]|||||||||||||||||||||
-||aard{}||||||||||||||||||||
-||indicatieVervallenKadastraalOnroerendeZaak||||||||||||||||||||
-||kadastraalOnroerendeZaakIdentificatie||||||||||||||||||||
-|isOvergegaanIn[{}]|||||||||||||||||||||
-||aard{}||||||||||||||||||||
-||indicatieVervallenKadastraalOnroerendeZaak||||||||||||||||||||
-||kadastraalOnroerendeZaakIdentificatie||||||||||||||||||||
-|isVermeldInStukdeelIdentificaties[]|||1|1|1||1|1|1|1|1|1|1|1|1|1|1|1|1|1|
-|kadastraleAanduiding|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-|kadastraleGrootte{}|||X|X|X|X||X|X|X|X|X|X|X|X|X|X||X|X|
-||soortGrootte{}||X|X|X|X||X|X|X|X|X|X|X|X|X|X||X|X|
-||waarde||X|X|X|X||X|X|X|X|X|X|X|X|X|X||X|X|
-|koopsom{}|||X||X||||||X|X|X|X||X|||||
-||indicatieMetMeerObjectenVerkregen||||||||||X||X||||||||
-||koopjaar||X||X|||||||X||X||X|||||
-||koopsom||X||X|||||||X||X||X|||||
-|perceelnummerRotatie|||X||||||||||||||||||
-|perceelnummerVerschuiving{}|||X||||||||||||||||||
-||deltax||X||||||||||||||||||
-||deltay||X||||||||||||||||||
-|plaatscoordinaten{}|||X|X|X|X||X|X|X|X|X|X|X|X|X|X||X|X|
-||coordinates[]||2|2|2|2||2|2|2|2|2|2|2|2|2|2||2|2|
-||type()||Point|Point|Point|Point||Point|Point|Point|Point|Point|Point|Point|Point|Point|Point||Point|Point|
-|privaatrechtelijkeBeperkingIdentificaties[]|||1|1|||||1||||2||||||||
-|stukIdentificaties[]|||1|1|1||1|1|1|1|1|1|1|1|1|1|1|1||1|
-|toelichtingBewaarder|||X||||||||||||||||||
-|type()|||perceel|perceel|perceel|perceel|appartementsrecht|perceel|perceel|perceel|perceel|perceel|perceel|perceel|perceel|perceel|perceel|appartementsrecht|perceel|perceel|
-|zakelijkGerechtigdeIdentificaties[]|||2|1|1|3|1|2|2|2|1|1|2|1|2|1|2|1|1|2|
-|_links{}|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-||adresseerbareObjecten[]||||||||||||||||||||
-||adressen[]||1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1||1|
-||beslagen[]|||||||||||1|||||||||
-||bijbehorendGrondperceel{}||||||||||||||||||||
-||bijbehorendeAppartementsrechten[]||||||||||||||||||||
-||hypotheken[]||1||1|1|1|1||||1||||1|1|1|||
-||isOntstaanUit[]||||||||||||||||||||
-||isOvergegaanIn[]||||||||||||||||||||
-||privaatrechtelijkeBeperkingen[]||1|1|||||1||||1||||||||
-||self{}||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-||stukdelen[]||1|1|1||1|1|1|1|1|1|1|1|1|1|1|1|1|1|
-||stukken[]||1|1|1||1|1|1|1|1|1|1|1|1|1|1|1||1|
-||zakelijkGerechtigden[]||1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|
+## Zoeken van personen
 
-## GetZakelijkGerechtigde
+De volgende zoek operaties kunnen worden gebruikt om een persoon met niet-uniek identificerende persoonsgegevens te vinden:
 
-||||76870487970000/30493367|76870487970000/30493368|76870488070000/30493369|76870482670000/1000003519|76870482570000/20170719|76870482570000/20170717|76870482570000/20170718|22310827210003/90283613|56020234070000/50415050|56020234070000/50037358|23280647970000/90763536|23280647970000/90763535|65490485370000/150561360|65490485370000/150561361|24780711870000/91205343|17150075470000/1002195641|22590043870000/90495202|22590043870000/90495201|17500393970000/10848244|22360467970000/90317713|22360467970000/90317712|19560032970000/11225310|17550448670000/10872286|17550448670000/10872287|22310827210004/90283614|76370602970000/30426366|65490485270000/150561358|65490485270000/150561359|
-|--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
-|aanvangsdatum|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-|erfpachtCanon{}||||||||X|X|||||||||||X|||||||||||
-||betrefMeerOnroerendeZaken|||||||X|X||||||||||||||||||||||
-||einddatumAfkoop|||||||X|X||||||||||||||||||||||
-||indicatieOudeOnroerendeZaakBetrokken|||||||X|X||||||||||||||||||||||
-||isGebaseerdOpStukdeelIdentificatie|||||||X|X|||||||||||X|||||||||||
-||isVermeldInStukdeelIdentificaties[]|||||||2|2||||||||||||||||||||||
-||jaarlijksBedrag{}|||||||X|X||||||||||||||||||||||
-|||som||||||X|X||||||||||||||||||||||
-|||valuta{}||||||X|X||||||||||||||||||||||
-||soortErfpachtCanon{}|||||||X|X|||||||||||X|||||||||||
-||stukIdentificaties[]|||||||2|2|||||||||||1|||||||||||
-|identificatie|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-|persoon{}|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-||identificatie||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-||omschrijving||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-||type()||kadaster_natuurlijk_persoon|kadaster_natuurlijk_persoon|kadaster_niet_natuurlijk_persoon|kadaster_natuurlijk_persoon|kadaster_niet_natuurlijk_persoon|kadaster_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|ingeschreven_niet_natuurlijk_persoon|kadaster_niet_natuurlijk_persoon|ingeschreven_niet_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|kadaster_niet_natuurlijk_persoon|ingeschreven_niet_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|kadaster_niet_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|kadaster_natuurlijk_persoon|kadaster_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|
-|tenaamstelling{}|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-||aandeel{}||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-|||noemer|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-|||teller|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-||aantekeningen[{}]|||||||||||||1||||||2|||||||||||
-|||aard{}||||||||||||X||||||X|||||||||||
-|||betreftGedeelteVanPerceel||||||||||||||||||X|||||||||||
-|||omschrijving||||||||||||||||||X|||||||||||
-|||domein||||||||||||X||||||X|||||||||||
-|||einddatum||||||||||||||||||X|||||||||||
-|||einddatumRecht||||||||||||||||||X|||||||||||
-|||identificatie||||||||||||X||||||X|||||||||||
-|||isGebaseerdOpStukdeelIdentificatie||||||||||||X||||||X|||||||||||
-|||isVermeldInStukdeelIdentificaties[]||||||||||||2|||||||||||||||||
-|||stukIdentificaties[]||||||||||||2||||||1|||||||||||
-|||begrenzing|||||||||||||||||||||||||||||
-|||indicatieOorspronkelijkObject|||||||||||||||||||||||||||||
-||betrokkenGorzenEnAanwassen{}||X||||||||||||||||||||||||||||
-|||identificatie|X||||||||||||||||||||||||||||
-|||omschrijving|X||||||||||||||||||||||||||||
-|||type()|ingeschreven_niet_natuurlijk_persoon||||||||||||||||||||||||||||
-||betrokkenPartner{}||X|X|||||||||||||||||||||X|X|||||
-|||identificatie|X|X|||||||||||||||||||||X|X|||||
-|||omschrijving|X|X|||||||||||||||||||||X|X|||||
-|||type()|kadaster_natuurlijk_persoon|kadaster_natuurlijk_persoon|||||||||||||||||||||ingeschreven_natuurlijk_persoon|ingeschreven_natuurlijk_persoon|||||
-||betrokkenSamenwerkingsverband{}||X||||||||||||||||||||||||||||
-|||identificatie|X||||||||||||||||||||||||||||
-|||omschrijving|X||||||||||||||||||||||||||||
-|||type()|kadaster_niet_natuurlijk_persoon||||||||||||||||||||||||||||
-||burgerlijkeStaatTenTijdeVanVerkrijging{}||X|X||X||X|X||||||X|X||X|||X||||X|X|X|X|X|X|
-||gezamenlijkAandeel{}||X||||||||||||||||||||||||||||
-|||noemer|X||||||||||||||||||||||||||||
-|||teller|X||||||||||||||||||||||||||||
-||isGebaseerdOpStukdeelIdentificaties[]||1|1|3|1|1|1|1|1|1|1|1|1|2|2|2|2|2|1|1|1|2|1|2|2|1|1|2|2|
-||isVermeldInStukdeelIdentificaties[]||||3||1||||2||||||||||||||||||||
-||stukIdentificaties[]||1|1|6|1|2|1|1|1|3|1|1|1|2|2|2|2|2|1|1|1|2|1|2|2|1|1|2|2|
-||verkregenNamensSamenwerkingsverband{}|||||||||||||||||||||||X|||||||
-|type()|||eigenaar|eigenaar|eigenaar|eigenaar|eigenaar|erfpachter|erfpachter|eigenaar|eigenaar|artikel5_3b|eigenaar|erfpachter|eigenaar|eigenaar|eigenaar|eigenaar|eigenaar|erfpachter|eigenaar|eigenaar|erfpachter|eigenaar|eigenaar|eigenaar|eigenaar|eigenaar|eigenaar|eigenaar|
-|zakelijkRecht{}||||||||||||X|||||||||||||||||||
-||isGebaseerdOpStukdeelIdentificaties[]|||||||||||1|||||||||||||||||||
-||isVermeldInStukdeelIdentificaties[]|||||||||||2|||||||||||||||||||
-||stukIdentificaties[]|||||||||||2|||||||||||||||||||
-|_links{}|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-||betrokkenGorzenEnAanwassen{}||X||||||||||||||||||||||||||||
-||betrokkenPartner{}||X|X|||||||||||||||||||||||||||
-||betrokkenSamenwerkingsverband{}||X||||||||||||||||||||||||||||
-||persoon{}||X|X|X|X|X|X||||X|X|X|||||X|X||X||||||X|X||
-||self{}||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-||stukdelen[]||1|1|2|1|2|3|3|1|2|3|1|3|1|1|1|1|1|3|1|1|1|1|1|1|1|1|1|1|
-||stukken[]||1|1|1|1|1|2|2|1|1|2|1|2|1|1|1|1|1|3|1|1|1|1|1|1|1|1|1|1|
+- zoek met geslachtsnaam en geboortedatum
+  - [overzicht](./features/zoek-met-geslachtsnaam-en-geboortedatum/overzicht.feature)
+  - [fout cases](./features/zoek-met-geslachtsnaam-en-geboortedatum/fout-cases.feature)
+- zoek met geslachtsnaam, voornamen en gemeente van inschrijving
+  - [overzicht](./features/zoek-met-geslachtsnaam-voornamen-en-gemeente-van-inschrijving/overzicht.feature)
+  - [fout cases](./features/zoek-met-geslachtsnaam-voornamen-en-gemeente-van-inschrijving/fout-cases.feature)
+- zoek met postcode en huisnummer
+  - [overzicht](./features/zoek-met-postcode-en-huisnummer/overzicht.feature)
+  - [fout cases](./features/zoek-met-postcode-en-huisnummer/fout-cases.feature)
+- zoek met straat, huisnummer en gemeente van inschrijving
+  - [overzicht](./features/zoek-met-straatnaam-huisnummer-en-gemeente-van-inschrijving/overzicht.feature)
+  - [fout cases](./features/zoek-met-straatnaam-huisnummer-en-gemeente-van-inschrijving/fout-cases.feature)
+- zoek met nummeraanduiding identificatie
+  - [overzicht](./features/zoek-met-nummeraanduiding-identificatie/overzicht.feature)
+  - [fout cases](./features/zoek-met-nummeraanduiding-identificatie/fout-cases.feature)
 
-## GetKadasterPersoon
+Het resultaat van deze operaties is een PersoonBeperkt collectie/lijst. Standaard bevat deze lijst alleen personen die in leven zijn. Om een overleden persoon te zoeken, moet de inclusiefOverledenPersonen parameter op true worden gezet. 
 
-||||70882250|80000001|80000002|80000003|80000004|80000005|80000006|80000007|80000008|50550743|70882239|71303564|
-|--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
-|identificatie|||X|X|X|X|X|X|X|X|X|X|X|X|
-|omschrijving|||X|X|X|X|X|X|X|X|X|X|X|X|
-|beschikkingsbevoegdheid{}|||||||||||||X||
-|domein|||X|X|X|X|X|X|X|X|X|X|X|X|
-|indicatieNietToonbareDiakriet||||X||||||||X|||
-|kadastraalOnroerendeZaakIdentificaties[]|||1|||||||||1|2|2|
-|postadres{}|||X|||||||||X|X|X|
-||huisletter||||||||||||X||
-||huisnummer||||||||||||X|X|
-||huisnummertoevoeging||||||||||||X||
-||postcode||X||||||||||X|X|
-||straat||||||||||||X|X|
-||woonplaats||X||||||||||X|X|
-||adresregel1||X|||||||||X|X|X|
-||adresregel2||X|||||||||X|X|X|
-||adresregel3|||||||||||X|||
-||land{}|||||||||||X|||
-||nummeraanduidingIdentificatie|||||||||||||X|
-||postbusnummer||X||||||||||||
-|woonadres{}||||||||||||X|X|X|
-||huisletter||||||||||||X||
-||huisnummer||||||||||||X|X|
-||huisnummertoevoeging||||||||||||X||
-||postcode||||||||||||X|X|
-||straat||||||||||||X|X|
-||woonplaats||||||||||||X|X|
-||adresregel1|||||||||||X|X|X|
-||adresregel2|||||||||||X|X|X|
-||adresregel3|||||||||||X|||
-||land{}|||||||||||X|||
-||nummeraanduidingIdentificatie|||||||||||||X|
-|geboorte{}|||X|X|X|X|X|X|X|X|X|X|X|X|
-||datum{}||X|X|X|X|X|X|X|X|X|X|X|X|
-|||dag|X|X|X|X|X|X|X|X|X|X|X|X|
-|||datum|X|X|X|X|X|X|X|X|X|X|X|X|
-|||jaar|X|X|X|X|X|X|X|X|X|X|X|X|
-|||maand|X|X|X|X|X|X|X|X|X|X|X|X|
-||land{}||||||||||||X|X|
-||plaats||||||||||||X|X|
-|geheimhoudingPersoonsgegevens|||||||||||||||
-|geslachtsaanduiding()|||man|onbekend|man|vrouw|vrouw|vrouw|man|man|man|vrouw|man|man|
-|heeftPartnerschap[{}]|||||1|1|1|1||||1|1||
-||datumOntbinding||||||||||||||
-||datumSluiting||||||||||||||
-||naam{}||||X|X|X|X||||X|X||
-|||geslachtsnaam|||X|X|X|X||||X|X||
-|||voornamen|||X|X|X|X||||X|X||
-|||voorvoegsel||||X|X||||||||
-|landWaarnaarVertrokken{}||||||||||||X|||
-|naam{}|||X|X|X|X|X|X|X|X|X|X|X|X|
-||geslachtsnaam||X|X|X|X|X|X|X|X|X|X|X|X|
-||voornamen||X|X|X|X|X|X|X|X|X|X|X|X|
-||voorvoegsel||||X|X||||X||||X|
-||aanhef||X|X|X|X|X|X|X|X|X|X|X|X|
-||aanschrijfwijze||X|X|X|X|X|X|X|X|X|X|X|X|
-||gebruikInLopendeTekst||X|X|X|X|X|X|X|X|X|X|X|X|
-|overlijden{}|||X||||||||X||||
-||datum{}||X||||||||X||||
-|||dag|X||||||||X||||
-|||datum|X||||||||X||||
-|||jaar|X||||||||X||||
-|||maand|X||||||||X||||
-|_links{}|||X|X|X|X|X|X|X|X|X|X|X|X|
-||kadastraalOnroerendeZaken[]||1|||||||||1|1|1|
-||postadres{}||||||||||||||
-||self{}||X|X|X|X|X|X|X|X|X|X|X|X|
-||woonadres{}||||||||||||||
-||zakelijkGerechtigden[]||1|||||||||1|2|2|
+Voor overleden personen wordt altijd het opschortingBijhouding veld geleverd met reden code 'O' en omschrijving 'overlijden'. Zie de [overlijden overzicht](./features/persoon-beperkt/overlijden/overzicht.feature) feature voor meer informatie over dit veld.
 
-## GetKadasterNietNatuurlijkPersoon
+## Raadplegen van personen
 
-||||71291440|71291493|24268006|440650207|71291441|71291442|
-|--- |--- |--- |--- |--- |--- |--- |--- |--- |
-|identificatie|||X|X|X|X|X|X|
-|omschrijving|||X|X|X|X|X|X|
-|beschikkingsbevoegdheid{}||||||X|||
-|domein|||X|X|X|X|X|X|
-|indicatieNietToonbareDiakriet||||||X|||
-|kadastraalOnroerendeZaakIdentificaties[]|||2|||1|3|2|
-|postadres{}||||X|X|X|X||
-||huisletter|||X||X|||
-||huisnummer|||X||X|||
-||huisnummertoevoeging|||X||X|||
-||postcode|||X|X||X||
-||straat|||X||X|||
-||woonplaats|||X|X|X|X||
-||adresregel1|||X|X|X|X||
-||adresregel2|||X|X|X|X||
-||adresregel3||||||||
-||land{}||||||||
-||nummeraanduidingIdentificatie|||||X|||
-||postbusnummer||||X||X||
-|woonadres{}|||X|X||X|X|X|
-||huisletter||X||||||
-||huisnummer||X|X||X|X|X|
-||huisnummertoevoeging||X||||||
-||postcode||X|X||X|X|X|
-||straat||X|X||X|X|X|
-||woonplaats||X|X||X|X|X|
-||adresregel1||X|X||X|X|X|
-||adresregel2||X|X||X|X|X|
-||adresregel3||||||||
-||land{}||||||||
-||nummeraanduidingIdentificatie|||||X|||
-|kvkNummer||||X|X|X||X|
-|rechtsvorm{}|||X|X|X|X|X|X|
-|rsin||||X|X|X||X|
-|statutaireNaam|||X|X|X|X|X|X|
-|statutaireZetel|||X|X|X|X|X|X|
-|_links{}|||X|X|X|X|X|X|
-||kadastraalOnroerendeZaken[]||1|1|1|1|1|1|
-||postadres{}||||||||
-||self{}||X|X|X|X|X|X|
-||woonadres{}||||||||
-||zakelijkGerechtigden[]||2|||1|3|2|
+Als de burgerservicenummer van de te bevragen personen wel bekend is, kan de volgende operatie worden gebruikt om gegevens van de persoon te raadplegen:
 
-## GetHypotheek
+- raadpleeg met burgerservicenummer
+  - [overzicht](./features/raadpleeg-met-burgerservicenummer/overzicht.feature)
+  - [fout cases](./features/raadpleeg-met-burgerservicenummer/fout-cases.feature)
 
-||||76870487970000/35052041|76870482670000/1000002150|76870482670000/35139325|76870482570000/25381030|22310827210003/95045785|56020234070000/55224371|17150075470000/15479389|19560032970000/15303394|19560032970000/15303397|17550448670000/15598882|22310827210004/95243355|22310827210004/95243356|
-|--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
-|aandeelInBetrokkenRecht{}|||X|X|X|X|X|X|X|X|X|X|X|X|
-||noemer||X|X|X|X|X|X|X|X|X|X|X|X|
-||teller||X|X|X|X|X|X|X|X|X|X|X|X|
-|aantekeningen[{}]|||||1||||3||||||
-||aard{}||||X||||X||||||
-||betreftGedeelteVanPerceel||||||||||||||
-||omschrijving||||X||||X||||||
-|bedragZekerheidsstelling{}|||X|X|X|X||X|X|X|X|X||X|
-||som||X|X|X|X||X|X|X|X|X||X|
-||valuta{}||X|X|X|X||X|X|X|X|X||X|
-|betreftGedeelteVanPerceel||||X|||||X||||||
-|domein|||X|X|X|X|X|X|X|X|X|X|X|X|
-|gedeeltelijkeBezwaringOudObject|||||X||||||||||
-|hypotheekhouders[{}]|||1|1|1|1|1|1|2|1|1|1|||
-||identificatie||X|X|X|X|X|X|X|X|X|X|||
-||omschrijving||X|X|X|X|X|X|X|X|X|X|||
-||type()||kadaster_niet_natuurlijk_persoon|kadaster_niet_natuurlijk_persoon|ingeschreven_niet_natuurlijk_persoon|kadaster_natuurlijk_persoon|kadaster_natuurlijk_persoon|ingeschreven_niet_natuurlijk_persoon|ingeschreven_niet_natuurlijk_persoon|ingeschreven_niet_natuurlijk_persoon|kadaster_niet_natuurlijk_persoon|ingeschreven_niet_natuurlijk_persoon|||
-|identificatie|||X|X|X|X|X|X|X|X|X|X|X|X|
-|isGebaseerdOpStukdeelIdentificatie|||X|X|X|X|X|X|X|X|X|X|X|X|
-|isVermeldInStukdeelIdentificaties[]|||||||||1|||1|||
-|omschrijvingBetrokkenRecht{}|||X|X|X|X|X|X|X|X|X|X|X|X|
-|omschrijvingGekozenWoonplaats|||X|X|X|X||X||X|X|X||X|
-|stukIdentificaties[]|||1|1|1|1|1|1|2|1|1|2|1|1|
-|toelichtingBewaarder|||||||||X||||||
-|_links{}|||X|X|X|X|X|X|X|X|X|X|X|X|
-||hypotheekhouders[]||1|1|1|1|1|1|2|1|1|1|||
-||self{}||X|X|X|X|X|X|X|X|X|X|X|X|
-||stukdelen[]||1|1|1|1|1|1|2|1|1|2|1|1|
-||stukken[]||1|1|1|1|1|1|1|1|1|1|1|1|
+Het resultaat van deze operatie is een Persoon collectie/lijst.
 
-## GetBeslag
+Voor overleden personen wordt altijd het opschortingBijhouding veld geleverd met reden code 'O' en omschrijving 'overlijden'.  Zie de [overlijden overzicht](./features/persoon/overlijden/overzicht.feature) feature voor meer informatie over dit veld.
 
-||||17150075470000/95377750|17150075470000/95377751|
-|--- |--- |--- |--- |--- |
-|aandeelInBetrokkenRecht{}|||X|X|
-||noemer||X|X|
-||teller||X|X|
-|aantekeningen[{}]|||2||
-||aard{}||X||
-||betreftGedeelteVanPerceel||||
-||omschrijving||X||
-|aard{}|||X|X|
-|bedragVordering{}|||X|X|
-||som||X|X|
-||valuta{}||X|X|
-|beslagleggers[{}]|||2|1|
-||identificatie||X|X|
-||omschrijving||X|X|
-||type()||ingeschreven_niet_natuurlijk_persoon|ingeschreven_niet_natuurlijk_persoon|
-|domein|||X|X|
-|gedeeltelijkeBezwaringOudObject|||X||
-|identificatie|||X|X|
-|isGebaseerdOpStukdeelIdentificatie|||X|X|
-|isVermeldInStukdeelIdentificaties[]|||2||
-|omschrijvingBetrokkenRecht{}|||X|X|
-|stukIdentificaties[]|||2|1|
-|toelichtingBewaarder||||X|
-|_links{}|||X|X|
-||beslagleggers[]||2|1|
-||self{}||X|X|
-||stukdelen[]||2|1|
-||stukken[]||1|1|
+## Filteren van de velden van de gevonden personen
 
-## GetPrivaatrechtelijkeBeperking
+Bij elke bevraging moet de fields parameter verplicht worden gebruikt om aan te geven welke velden van de gevonden persoon/personen geleverd moet worden. Om de privacy van de gevraagde personen te beschermen mag een afnemer alleen de velden vragen waarvoor hij doelbinding heeft en moet de gevraagde velden worden beperkt tot wat nodig is voor de uit te voeren taak.
+Bijkomend voordeel van deze data minimalisatie is dat er ook wordt bijgedragen aan verduurzaming. Hoe minder velden er worden gevraagd, hoe minder de server en het netwerk worden belast.
 
-||||76870487970000/30336965|76870488070000/30336966|23280647970000/91104907|22590043870000/91074411|22590043870000/91074412|
-|--- |--- |--- |--- |--- |--- |--- |--- |
-|aard{}|||X|X|X|X|X|
-|betreftGedeelteVanPerceel||||||X||
-|omschrijving||||||X||
-|domein|||X|X|X|X|X|
-|einddatum||||||X||
-|einddatumRecht||||||X||
-|identificatie|||X|X|X|X|X|
-|isGebaseerdOpStukdeelIdentificatie|||X|X|X|X|X|
-|isVermeldInStukdeelIdentificaties[]|||2||2|||
-|stukIdentificaties[]|||2|1|2|1|1|
-|_links{}|||X|X|X|X|X|
-||self{}||X|X|X|X|X|
-||stukdelen[]||2|1|2|1|1|
-||stukken[]||1|1|1|1|1|
+Een veld wordt gevraagd door het volledig pad van het betreffende veld op te geven in de fields parameter. Het volledig pad van een veld is de samenvoeging van de naam van het veld en de namen van zijn 'ouder' velden met een '.' karakter tussen de veld namen. Voorbeelden van volledige paden:
 
-## GetStuk
+- geboorte.datum (volledig pad van het geboortedatum veld van een persoon)
+- kinderen.naam.voornamen (volledig pad van het voornamen veld van de kinderen van een persoon)
 
-||||20170102999999|20200227000564|20190409001159|20181230000001|20150209000285|20150209000284|20200617001840|18020223007191|20101228003687|20110105001818|20140509000357|20140515002559|20170103000973|20181011002195|20180801006361|20181011002193|20160523002203|20160425002157|20161130002071|20160523001278|20200617001837|18060904017284|18050504014555|20131224000644|20060410001235|20060413001606|20060524002230|20140206000047|18011017010446|20200617001838|20170112112820|20200617001836|18050329018096|18011129011165|20021202002459|17990613006175|20120423000694|17990607002967|20200617001839|17990709013766|20111230005781|17990712016255|17990623003542|20131210000494|20170112069499|18010421002984|20040616004631|20110103000422|20150331003222|20180524001411|20150331003221|20161230002508|20181203005136|18010417012180|20040120003497|18061204003791|20101224002005|18050519015236|18020130003032|18011209006307|20021220001664|
-|--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
-|aard{}||||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|bewaardersVerklaring||||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|domein|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-|equivalentieVerklaarder{}||||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||geslachtsnaam|||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||voornamen|||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||voorvoegsel|||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||standplaats|||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|identificatie|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-|indicatieTekeningBijgevoegd||||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|kadasterverzoeken[{}]||||||||||1||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||aard{}|||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||redenenVerzoek[{}]|||||||||2||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|||reden{}||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|||redenOmschrijving||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|status{}||||||||||X|||||||||||||||||||||||||||||||||||||||X|X|||||||||||X|||
-|stukType()|||Kadasterstuk|Aangebodenstuk|Aangebodenstuk|Kadasterstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Kadasterstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Kadasterstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|Aangebodenstuk|
-|stukdeelIdentificaties[]|||1|1|1|1|1|1|2|1|1|1|1|1|1|1|1|1|1|1|1|1|2|1|1|1|1|1|1|1|1|2|1|2|1|1|1|1|1|2|2|2|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|
-|tijdstipAanbieding||||X|X||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X||X|X|X|X|X|X|X||X|||X|X|X|X|X|X|X|X|X|X||X|||X|X|X|X|X|X|X||X|||X|X|
-|tijdstipOndertekening|||||X||X|||||||||X|X|X|X|||||||X||||||||||||||X||X|X||||||||X|X||X|X||||X|||||
-|toelichtingBewaarder||||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|_links{}|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-||self{}||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-||stukdelen[]||1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|1|
+Zie de [fields](./features/fields.feature) en de [fields fout cases](./features/fields-fout-cases.feature) feature bestanden voor meer informatie en voorbeelden over het gebruik van veld paden en de fields parameter. 
 
-## GetStukdeel
+### Filteren van datum en waardetabel velden
 
-||||1029999990|500001938598|500000657144|500000271633|1002241290|1001591789|32790058|32790059|1000854514|1001690789|1001441135|1001442932|1001559491|1001560108|500000003045|1002264425|500000003038|1007563710|1006938879|1006971479|1006942716|32790052|32790053|1010255056|1008269067|1022484915|1022853788|1022853885|1022855688|1022941586|1022500606|32790054|32790055|1009609671|32790050|32790051|1008049451|1014599110|1014241153|1008784555|1009258734|1010122465|32790056|32790057|1010122466|1005512339|1005012023|1003839114|1008767621|1009300569|1009566350|1003538521|1008956910|1009221604|1005406949|1005195516|1004455335|1005291811|500000171906|1003467720|1003956448|1009817003|1010172671|1008091224|1000370114|1013701450|1014600872|1014436359|
-|--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |--- |
-|aard{}|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-|bedragTransactiesomLevering{}|||||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||som||||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-||valuta{}||||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|domein|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-|identificatie|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-|omschrijvingKadastraleObjecten|||||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|omschrijvingTopografischeMutatie|||||||||||X||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
-|_links{}|||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-||self{}||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
-||stuk{}||X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|X|
+De {{ site.apiname }} Web API kent de volgende datum types:
+
+- VolledigeDatum
+- DatumOnbekend
+- JaarDatum
+- JaarMaandDatum
+
+en de volgende waardetabel types:
+
+- Waardetabel
+- AdellijkeTitelPredicaatType
+
+Bij het vragen van één of meerdere velden van deze types wordt altijd alle velden van het gevraagde type geleverd. In de [fields](./features/fields.feature) feature bestand zijn onder de volgende rules voorbeelden hiervan opgenomen:
+
+- [Rule: Het vragen van één of meerdere velden van een 'waardetabel' veld levert alle velden van de 'waardetabel' veld](./features/fields.feature#rule-het-vragen-van-één-of-meerdere-velden-van-een-waardetabel-veld-levert-alle-velden-van-de-waardetabel-veld)
+- [Rule: Het vragen van één of meerdere velden van een 'datum' veld levert alle velden van de 'datum' veld](./features/fields.feature#rule-het-vragen-van-één-of-meerdere-velden-van-een-datum-veld-levert-alle-velden-van-de-datum-veld)
+
+### Standaard geleverde velden
+
+De volgende velden worden automatisch geleverd, als de bijbehorende situatie van toepassing is:
+
+- geheimhoudingPersoonsgegevens
+- inOnderzoek
+- opschortingBijhouding
+- rni
+- verificatie
+
+Automatisch geleverde velden mogen niet worden gevraagd met de fields parameter.
+
+### Filteren van verblijfplaats velden
+
+Voor verblijfplaats zijn er twee autorisatie profielen:
+
+- geautoriseerd voor zowel verblijfplaats binnenland (Adres en Locatie) en verblijfplaats buitenland gegevens
+- geautoriseerd voor alleen verblijfplaats binnenland (Adres en Locatie) gegevens
+
+Afnemers die geautoriseerd zijn voor alleen verblijfplaats binnenland gegevens kunnen hierdoor de standaard veld paden van verblijfplaats niet gebruiken om alleen verblijfplaats binnenland velden te vragen. Met deze veld paden worden namelijk zowel verblijfplaats binnenland als verblijfplaats buitenland gevraagd.
+
+Afnemers die niet geautoriseerd zijn voor verblijfplaats buitenland gegevens moeten daarom de __verblijfplaatsBinnenland__ fields alias gebruiken om aan te geven dat alleen verblijfplaats binnenland gegevens wordt gevraagd.
+
+Het gebruik van de __verblijfplaatsBinnenland__ fields alias is beschreven in de volgende feature bestanden:
+
+- [verblijfplaats fields alias](./features/persoon/verblijfplaats/fields-alias.feature)
+- [verblijfplaats fields alias fout cases](./features/persoon/verblijfplaats/fields-alias-fout-cases.feature)
+
+### Filteren van adresregels velden
+
+De adresregel velden van een persoon wordt samengesteld uit de verblijfplaats velden van een persoon. Om de adresregel velden te kunnen vragen moet de afnemer daarom minimaal geautoriseerd zijn voor de verblijfplaats velden waarmee de adresregel velden worden samengesteld.
+
+Dit betekent dat de twee autorisatie profielen van verblijfplaats ook gelden voor het vragen van adresregel velden. Afnemers die niet geautoriseerd zijn voor het vragen van adresregels van een verblijfplaats buitenland moeten daarom de __adresseringBinnenland__ fields alias gebruiken om aan te geven dat alleen adresregels voor verblijfplaats binnenland wordt gevraagd.
+
+Het gebruik van de __adresseringBinnenland__ fields alias is beschreven in de volgende feature bestanden:
+
+- [adresregels fields alias](./features/persoon/adressering/adres-regels/fields-alias.feature)
+- [adresregels fields alias fout cases](./features/persoon/adressering/adres-regels/fields-alias-fout-cases.feature)
+
+### Filteren van partner velden
+
+Bij het vragen van de partners van een persoon wordt de gevraagde gegevens van actuele partners (= niet ontbonden huwelijk/geregistreerd partnerschap) geleverd. Heeft de betreffende persoon alleen ontbonden huwelijk/geregistreerd partnerschappen, dan wordt alleen de gevraagde gegevens van het meest recente ontbonden huwelijk/geregistreerd partnerschap geleverd.
+
+In het volgend feature bestand zijn de bovenstaande regels geïllustreerd aan de hand van scenario's/voorbeelden:
+
+- [partner velden vragen met fields](./features/persoon/partner/overzicht.feature)
+
+### Filteren van nationaliteit velden
+
+De {{ site.apiname }} Web API kent de volgende nationaliteit types:
+
+- Nationaliteit
+- Staatloos
+- BehandeldAlsNederlander
+- VastgesteldNietNederlander
+- Onbekend
+
+Er wordt alleen gegevens van actuele (= niet beëindigde) nationaliteiten geleverd.
+
+In het volgend feature bestand zijn de bovenstaande regels geïllustreerd aan de hand van scenario's/voorbeelden:
+
+- [nationaliteit velden vragen met fields](./features/persoon/nationaliteit/overzicht.feature)
+
+### Filteren van verblijfstitel velden
+
+Wanneer velden van de verblijfstitel wordt gevraagd, dan wordt de gevraagde gegevens geleverd als de verblijfstitel niet is beëindigd. Gegevens van een verblijfstitel wordt ook niet geleverd als de aanduiding gelijk is aan 'geen verblijfstitel (meer)'.
+
+In het volgend feature bestand zijn de bovenstaande regels geïllustreerd aan de hand van scenario's/voorbeelden:
+
+- [verblijfstitel velden vragen met fields](./features/persoon/verblijfstitel/overzicht.feature)
+
+## Eén of meerdere gevraagde velden zijn in onderzoek
+
+Om een afnemer te notificeren dat één of meerdere gevraagde velden in onderzoek zijn, worden de bijbehorende inOnderzoek en datumIngangOnderzoek velden ook geleverd.
+Wanneer één of meerdere velden waaruit een andere veld wordt afgeleid (bijv. de adressering velden) in onderzoek zijn, dan is het afgeleid veld ook in onderzoek en wordt de inOnderzoek veld van het afgeleid veld ook geleverd.
+In het [in onderzoek](./features/in-onderzoek.feature) feature bestand zijn de regels beschreven wanneer de inOnderzoek velden wel/niet worden geleverd.
+
+## Geen/null/false waarde, leeg object waarde en standaard waarde
+
+Om de payload van een response klein te houden, is er voor gekozen om velden met de volgende waarden niet te leveren in de response:
+
+- niet gevraagde velden. Deze velden hebben _null_ als waarde.
+- gevraagde velden die de gevraagde persoon niet heeft. Deze velden hebben _null_ als waarde. Voorbeeld: naam.voorvoegsel veld wordt gevraagd voor een persoon die geen voorvoegsel in zijn naam heeft.
+- gevraagde velden hebben de _false_ waarde. Voorbeeld: indicatieCurateleRegister veld wordt gevraagd voor een persoon die niet onder curatele is gesteld.
+- gevraagde velden is een groep velden die de persoon niet heeft. Voorbeeld: verblijfstitel velden wordt gevraagd voor een persoon die geen verblijfstitel heeft
+- gevraagde velden heeft de __standaard__ waarde. In de BRP wordt de standaard waarde gebruikt om aan te geven dat een gegeven onbekend is. Voorbeeld: geboorte.plaats veld wordt gevraagd voor een persoon waarvan de geboorteplaats onbekend is
+- gevraagde velden hebben geen aanduiding in onderzoek.
