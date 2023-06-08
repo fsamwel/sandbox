@@ -33,7 +33,7 @@ title: fields
 # Fields samenstellen
 
 
-<script src="https://raw.githubusercontent.com/fsamwel/sandbox/gh-pages/fields.js" />
+<script src="https://raw.githubusercontent.com/fsamwel/sandbox/gh-pages/fields.js" ></script>
 
 ## 1. selecteer het zoektype
 
