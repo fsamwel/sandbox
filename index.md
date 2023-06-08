@@ -3,10 +3,37 @@ layout: page-with-side-nav
 title: fields
 ---
 
+<style>
+  .check-tree li {
+    list-style-type: none
+  }
+
+  #fields {
+    width: 80%;
+  }
+
+  .hidden {
+    display: none;
+  }
+
+  .toggleButton {
+    background-color: darkgray;
+    color: white;
+    border-radius: 50%;
+    border-style: none;
+    font-weight: 800;
+    cursor: pointer;
+  }
+
+  .toggleButton:hover {
+    background-color: black;
+  }
+</style>
+
 # Fields samenstellen
 
 <script>
-  document.getElementById("selectors").innerHTML = 'Hier komen de velden om te selecteren.
+  document.getElementById("selectors").innerHTML = 'Hier komen de velden om te selecteren.';
 </script>
 
 ## 1. selecteer het zoektype
