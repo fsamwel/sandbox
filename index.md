@@ -5,7 +5,9 @@ title: fields
 
 # Fields samenstellen
 
-<script>console.log('test')</script>
+<script>
+  document.getElementById("selectors").innerHTML = 'Hier komen de velden om te selecteren.
+</script>
 
 ## 1. selecteer het zoektype
 
