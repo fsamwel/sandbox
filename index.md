@@ -32,9 +32,8 @@ title: fields
 
 # Fields samenstellen
 
-<script>
-  document.getElementById("selectors").innerHTML = 'Hier komen de velden om te selecteren.';
-</script>
+
+<script src="https://raw.githubusercontent.com/fsamwel/sandbox/gh-pages/fields.js" />
 
 ## 1. selecteer het zoektype
 
@@ -54,3 +53,5 @@ title: fields
 ## 3. Kopieer de volgende fields en gebruik dit in je request bij de fields parameter
 
 <textarea id="fields"></textarea>
+
+<script>loadFieldsList();</script>
