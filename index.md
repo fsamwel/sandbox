@@ -32,6 +32,8 @@ title: fields
 
 [feature illustratie](./features/illustrated.feature)
 
+<img src="Egel.svg">
+
 # Fields samenstellen
 
 ## 1. selecteer het zoektype
