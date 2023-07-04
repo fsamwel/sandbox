@@ -30,7 +30,7 @@ title: fields
   }
 </style>
 
-[feature illustratie](./features/illustratie.feature)
+[feature illustratie](./features/illustrated.feature)
 
 # Fields samenstellen
 
