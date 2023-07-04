@@ -30,6 +30,8 @@ title: fields
   }
 </style>
 
+[feature illustratie](./features/illustratie.feature)
+
 # Fields samenstellen
 
 ## 1. selecteer het zoektype
