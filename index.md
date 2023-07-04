@@ -32,7 +32,7 @@ title: fields
 
 [feature illustratie](./features/illustrated.feature)
 
-<img src="Egel.svg">
+<img src="./features/Egel.svg">
 
 # Fields samenstellen
 
