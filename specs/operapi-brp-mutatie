@@ -76,24 +76,24 @@ components:
           $ref: '#/components/schemas/Geslacht'
         naam:
           $ref: '#/components/schemas/NaamPersoon'
-        nationaliteiten:
-          type: array
-          items:
-            $ref: '#/components/schemas/AbstractNationaliteit'
         geboorte:
           $ref: '#/components/schemas/Geboorte'
-        verblijfplaats:
-          $ref: '#/components/schemas/AbstractVerblijfplaats'
-        gemeenteVanInschrijving:
-          $ref: '#/components/schemas/Gemeentecode'
+        aktenummer:
+            $ref: '#/components/schemas/Aktenummer'
         ouders:
           type: array
           items:
             $ref: '#/components/schemas/OuderGeboorte'
           minItems: 1
           maxItems: 2
-        aktenummer:
-            $ref: '#/components/schemas/Aktenummer'
+        nationaliteiten:
+          type: array
+          items:
+            $ref: '#/components/schemas/AbstractNationaliteit'
+        gemeenteVanInschrijving:
+          $ref: '#/components/schemas/Gemeentecode'
+        verblijfplaats:
+          $ref: '#/components/schemas/AbstractVerblijfplaats'
     Aktenummer:
       type: string
       pattern: ^(1|2|3|5)[0-9a-zA-Z][A-Z][0-9]{4}$
@@ -781,11 +781,6 @@ components:
       properties:
         type:
           type: string
-        datumIngangGeldigheid:
-          $ref: '#/components/schemas/AbstractDatum'
-          description: |
-            datum waarop de gegevens over de verblijfplaats geldig zijn geworden.
-          deprecated: true
       discriminator:
         propertyName: type
         mapping:
@@ -835,8 +830,6 @@ components:
           $ref: '#/components/schemas/Regel3'
         land:
           $ref: '#/components/schemas/Waardetabel'
-        inOnderzoek:
-          $ref: '#/components/schemas/VerblijfadresBuitenlandInOnderzoek'
     VerblijfplaatsBuitenlandInOnderzoek:
       allOf:
         - $ref: '#/components/schemas/InOnderzoek'
@@ -945,6 +938,10 @@ components:
               type: boolean
             functieAdres:
               type: boolean
+    functieAdres:
+      type: string
+      pattern: ^[W|B]$
+      description: woonadres W of briefadres B
     Adres:
       description: |
         Gegevens over het adres van een persoon.
@@ -964,8 +961,6 @@ components:
               description: |
                 de datum van aangifte of ambtshalve melding van verblijf en adres.
               $ref: '#/components/schemas/AbstractDatum'
-            indicatieVastgesteldVerblijftNietOpAdres:
-              $ref: '#/components/schemas/IndicatieVastgesteldVerblijftNietOpAdres'
           required:
             - verblijfadres
             - functieAdres
@@ -998,10 +993,6 @@ components:
               $ref: '#/components/schemas/Waardetabel'
             verblijfadres:
               $ref: '#/components/schemas/VerblijfadresLocatie'
-            indicatieVastgesteldVerblijftNietOpAdres:
-              $ref: '#/components/schemas/IndicatieVastgesteldVerblijftNietOpAdres'
-            inOnderzoek:
-              $ref: '#/components/schemas/LocatieInOnderzoek'
     ImmigratieBasis:
       type: object
       properties:
@@ -1119,6 +1110,8 @@ components:
           $ref: '#/components/schemas/Geboorte'
         geslacht:
           $ref: '#/components/schemas/Geslacht'
+      required:
+        - ouderAanduiding
     OuderInOnderzoek:
       description: |
         Geeft aan welke gegevens van de de ouder in onderzoek zijn.
@@ -1149,8 +1142,6 @@ components:
               $ref: '#/components/schemas/AbstractDatum'
             aktenummer:
                 $ref: '#/components/schemas/Aktenummer'
-          required:
-            - ouderAanduiding
     PartnerBasis:
       type: object
       properties:
