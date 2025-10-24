@@ -572,33 +572,6 @@ components:
         indicatieGezagMinderjarige:
           type: boolean
           deprecated: true
-    UitsluitingKiesrechtBasis:
-      type: object
-      properties:
-        uitgeslotenVanKiesrecht:
-          type: boolean
-          example: true
-    UitsluitingKiesrecht:
-      allOf:
-        - $ref: '#/components/schemas/UitsluitingKiesrechtBasis'
-        - type: object
-          properties:
-            einddatum:
-              $ref: '#/components/schemas/AbstractDatum'
-    EuropeesKiesrechtBasis:
-      type: object
-      properties:
-        aanduiding:
-          description: |
-            Geeft aan of persoon een oproep moet ontvangen voor verkiezingen voor het Europees parlement. Wordt gevuld met waarden voor 'Europees_Kiesrecht' in 'tabelwaarden.csv'.
-          $ref: '#/components/schemas/Waardetabel'
-    EuropeesKiesrecht:
-      allOf:
-        - $ref: '#/components/schemas/EuropeesKiesrechtBasis'
-        - type: object
-          properties:
-            einddatumUitsluiting:
-              $ref: '#/components/schemas/AbstractDatum'
     NaamPersoonInOnderzoek:
       allOf:
         - $ref: '#/components/schemas/NaamInOnderzoek'
@@ -617,17 +590,21 @@ components:
         - properties:
             aanduidingNaamgebruik:
               $ref: '#/components/schemas/AanduidingNaamgebruik'
+    RedenOpname:
+      type: string
+      pattern: ^[0-9]{3}$
     AbstractNationaliteit:
       type: object
       required:
         - type
+        - redenOpname
       properties:
         type:
           type: string
         redenOpname:
           description: |
             De reden op grond waarvan de persoon de nationaliteit gekregen heeft. Wordt gevuld met waarden uit de landelijke tabel 'Reden opnemen/beëindigen nationaliteit'.
-          $ref: '#/components/schemas/Waardetabel'
+          $ref: '#/components/schemas/RedenOpname'
         datumIngangGeldigheid:
           $ref: '#/components/schemas/AbstractDatum'
       discriminator:
@@ -658,6 +635,9 @@ components:
           properties:
             nationaliteit:
               type: boolean
+    Nationaliteit:
+      type: string
+      pattern: ^[0-9]{4}$
     NationaliteitBekend:
       allOf:
         - $ref: '#/components/schemas/AbstractNationaliteit'
@@ -666,7 +646,9 @@ components:
             nationaliteit:
               description: |
                 wordt gevuld met waarden uit de landelijke tabel 'Nationaliteiten'.
-              $ref: '#/components/schemas/Waardetabel'
+              $ref: '#/components/schemas/Nationaliteit'
+          required:
+            - nationaliteit
     BijzonderNederlanderschapInOnderzoek:
       description: |
         Geeft aan welke gegevens over de nationaliteit in onderzoek zijn.
@@ -938,7 +920,7 @@ components:
               type: boolean
             functieAdres:
               type: boolean
-    functieAdres:
+    FunctieAdres:
       type: string
       pattern: ^[W|B]$
       description: woonadres W of briefadres B
@@ -952,7 +934,7 @@ components:
             verblijfadres:
               $ref: '#/components/schemas/VerblijfadresBinnenland'
             functieAdres:
-              $ref: '#/components/schemas/Waardetabel'
+              $ref: '#/components/schemas/FunctieAdres'
             adresseerbaarObjectIdentificatie:
               $ref: '#/components/schemas/AdresseerbaarObjectIdentificatie'
             nummeraanduidingIdentificatie:
@@ -990,7 +972,7 @@ components:
             datumVan:
               $ref: '#/components/schemas/AbstractDatum'
             functieAdres:
-              $ref: '#/components/schemas/Waardetabel'
+              $ref: '#/components/schemas/FunctieAdres'
             verblijfadres:
               $ref: '#/components/schemas/VerblijfadresLocatie'
     ImmigratieBasis:
@@ -1082,6 +1064,8 @@ components:
           $ref: '#/components/schemas/Voorvoegsel'
         geslachtsnaam:
           $ref: '#/components/schemas/Geslachtsnaam'
+      required:
+        - geslachtsnaam
     Kind:
       allOf:
         - $ref: '#/components/schemas/KindBasis'
