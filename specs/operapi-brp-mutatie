@@ -214,8 +214,6 @@ components:
             datum:
               type: string
               format: date
-      required:
-        - datum
       example:
         type: Datum
         datum: '2018-07-01'
