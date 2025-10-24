@@ -317,13 +317,6 @@ components:
           NederlandseGemeente: '#/components/schemas/NederlandseGemeente'
           PlaatsInHetBuitenland: '#/components/schemas/BuitenlandsePlaatsnaam'
       type: object
-      properties:
-        gemeentecode:
-          $ref: '#/components/schemas/Gemeentecode'
-        buitenlandsePlaats:
-          type: string
-          pattern: ^[a-zA-Z0-9À-ž \'\.\-\(\),]{1,200}$
-          example: Parijs
     PersoonInOnderzoekBeperkt:
       description: |
         Geeft aan welke gegevens van de persoon in onderzoek zijn.
