@@ -106,7 +106,7 @@ components:
         verblijfplaats:
           $ref: '#/components/schemas/AbstractVerblijfplaats'
         gemeenteVanInschrijving:
-          $ref: '#/components/schemas/Waardetabel'
+          $ref: '#/components/schemas/Gemeentecode'
         ouders:
           type: array
           items:
@@ -222,17 +222,6 @@ components:
       description: representatie voor een volledig onbekend datum
       allOf:
         - $ref: '#/components/schemas/AbstractDatum'
-        - type: object
-          properties:
-            onbekend:
-              type: boolean
-              default: true
-      required:
-        - onbekend
-      example:
-        type: DatumOnbekend
-        onbekend: true
-        langFormaat: onbekend
     Jaar:
       type: integer
       format: int32
@@ -308,22 +297,45 @@ components:
         Indicatie dat persoonsgegevens niet mogen worden verstrekt aan derden / maatschappelijke instellingen.
       type: boolean
     Waardetabel:
-      type: object
-      properties:
-        code:
-          type: string
-          pattern: ^[a-zA-Z0-9 \.]+$
-        omschrijving:
-          type: string
-          pattern: ^[a-zA-Z0-9À-ž \'\.\-\(\),]{1,200}$
-          example: Nederland
+      type: string
+      pattern: ^[a-zA-Z0-9 \.]+$
     Landcode:
       type: string
       pattern: ^[0-9]{4}$
     Gemeentecode:
       type: string
-      pattern: ^[a-zA-Z0-9 \.]+$
+      pattern: ^[0-9]{4}$
+    BuitenlandsePlaatsnaam:
+      required:
+        - omschrijving
+      allOf:
+        - $ref: '#/components/schemas/GemeenteOfBuitenlandsePlaats'
+        - type: object
+          properties:
+            omschrijving:
+              type: string
+              pattern: ^[a-zA-Z0-9À-ž \'\.\-\(\),]{1,200}$
+              example: Parijs
+    NederlandseGemeente:
+      required:
+        - code
+      allOf:
+        - $ref: '#/components/schemas/GemeenteOfBuitenlandsePlaats'
+        - type: object
+          properties:
+            code: $ref: '#/components/schemas/Gemeentecode'
     GemeenteOfBuitenlandsePlaats:
+      type: object
+      required:
+        - type
+      properties:
+        type:
+          type: string
+      discriminator:
+        propertyName: type
+        mapping:
+          NederlandseGemeente: '#/components/schemas/NederlandseGemeente'
+          PlaatsInHetBuitenland: '#/components/schemas/BuitenlandsePlaatsnaam'
       type: object
       properties:
         gemeentecode:
@@ -346,13 +358,6 @@ components:
           type: boolean
         leeftijd:
           type: boolean
-    Leeftijd:
-      type: integer
-      description: |
-        Leeftijd in jaren op het moment van bevragen.
-      example: 34
-      minimum: 0
-      maximum: 150
     Voornamen:
       description: |
         De verzameling namen voor de geslachtsnaam, gescheiden door spaties.
@@ -381,12 +386,6 @@ components:
       description: |
         De achternaam van een persoon.
       example: Vries
-    Voorletters:
-      type: string
-      pattern: ^[a-zA-Z0-9À-ž \.]{1,40}$
-      description: |
-        De voorletters van de persoon, afgeleid van de voornamen.
-      example: P.J.
     NaamBasis:
       type: object
       required:
@@ -400,8 +399,6 @@ components:
           $ref: '#/components/schemas/Voorvoegsel'
         geslachtsnaam:
           $ref: '#/components/schemas/Geslachtsnaam'
-        voorletters:
-          $ref: '#/components/schemas/Voorletters'
     NaamInOnderzoek:
       description: |
         Geeft aan welke gegevens over de naam in onderzoek zijn.
@@ -698,8 +695,6 @@ components:
               description: |
                 wordt gevuld met waarden uit de landelijke tabel 'Nationaliteiten'.
               $ref: '#/components/schemas/Waardetabel'
-            inOnderzoek:
-              $ref: '#/components/schemas/NationaliteitBekendInOnderzoek'
     BijzonderNederlanderschapInOnderzoek:
       description: |
         Geeft aan welke gegevens over de nationaliteit in onderzoek zijn.
@@ -714,17 +709,9 @@ components:
     BehandeldAlsNederlander:
       allOf:
         - $ref: '#/components/schemas/AbstractNationaliteit'
-        - type: object
-          properties:
-            inOnderzoek:
-              $ref: '#/components/schemas/BijzonderNederlanderschapInOnderzoek'
     VastgesteldNietNederlander:
       allOf:
         - $ref: '#/components/schemas/AbstractNationaliteit'
-        - type: object
-          properties:
-            inOnderzoek:
-              $ref: '#/components/schemas/BijzonderNederlanderschapInOnderzoek'
     StaatloosInOnderzoek:
       description: |
         Geeft aan welke gegevens over de nationaliteit in onderzoek zijn.
@@ -739,10 +726,6 @@ components:
     Staatloos:
       allOf:
         - $ref: '#/components/schemas/AbstractNationaliteit'
-        - type: object
-          properties:
-            inOnderzoek:
-              $ref: '#/components/schemas/StaatloosInOnderzoek'
     NationaliteitOnbekendInOnderzoek:
       description: |
         Geeft aan welke gegevens over de nationaliteit in onderzoek zijn.
@@ -757,10 +740,6 @@ components:
     NationaliteitOnbekend:
       allOf:
         - $ref: '#/components/schemas/AbstractNationaliteit'
-        - type: object
-          properties:
-            inOnderzoek:
-              $ref: '#/components/schemas/NationaliteitOnbekendInOnderzoek'
     GeboorteInOnderzoek:
       allOf:
         - $ref: '#/components/schemas/InOnderzoek'
@@ -782,10 +761,10 @@ components:
         - $ref: '#/components/schemas/GeboorteBasis'
         - type: object
           properties:
-            land:
-              $ref: '#/components/schemas/Landcode'
             plaats:
               $ref: '#/components/schemas/GemeenteOfBuitenlandsePlaats'
+            land:
+              $ref: '#/components/schemas/Landcode'
     OverlijdenBasis:
       type: object
       properties:
