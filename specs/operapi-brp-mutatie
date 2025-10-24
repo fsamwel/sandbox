@@ -1393,19 +1393,19 @@ components:
             detail: The server is refusing the request because the entity of the request is in a format not supported by the requested resource for the requested method.
             instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
             code: unsupported
-    '429':
-      description: Too Many Requests
+    '409':
+      description: Conflict
       content:
         application/problem+json:
           schema:
             $ref: '#/components/schemas/Foutbericht'
           example:
-            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html
-            title: Too many request
-            status: 429
-            detail: The user has sent too many requests in a given amount of time (rate limiting).
+            type: https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.4.10.html
+            title: Conflict
+            status: 409
+            detail: Dit burgerservicenummer is al in gebruik.
             instance: https://datapunt.voorbeeldgemeente.nl/api/v1/resourcenaam?parameter=waarde
-            code: tooManyRequests
+            code: personAlreadyExists
     '500':
       description: Internal Server Error
       content:
